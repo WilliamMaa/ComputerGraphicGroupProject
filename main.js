@@ -1,26 +1,84 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+
+// obtain window size
+const windowWidth = window.innerWidth;
+const windowHeight = window.innerHeight;
+
+// renderer definition
+const canvas = document.getElementById('canvas')
+const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+renderer.setSize(windowWidth, windowHeight);
+
+// creating scene
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+// added blue background
+//change as u like i guess?
+scene.background = new THREE.Color('#00bfff');
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+// grids that represent ground plane
+//DELETE WHEN DONE IF NECASSARY 
+let gridHelper = new THREE.GridHelper();
+scene.add(gridHelper);
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+// camera
+//change position to change view
+const camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
+camera.position.set(5, 2, 0);
+camera.lookAt(0, 0, 0);
 
-camera.position.z = 5;
+// light
+//add more light here? maybe?
+//change position too so it looks good thx
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(10, 20, 5);
+scene.add(light);
 
+// mouse orbiting controls
+const controls = new OrbitControls(camera, renderer.domElement);
+
+// fish models
+const loader = new GLTFLoader();
+loader.load('/fish.glb', function (gltf) {
+    const model = gltf.scene;
+    model.scale.set(2.0, 2.0, 2.0);
+	model.position.set(1.0,1.0,1.0)
+    scene.add(model);
+	
+});
+loader.load('/fish.glb', function (gltf) {
+    const model = gltf.scene;
+    model.scale.set(2.0, 2.0, 2.0);
+	model.position.set(2.0,1.0,1.0)
+    scene.add(model);
+});
+loader.load('/fish.glb', function (gltf) {
+    const model = gltf.scene;
+    model.scale.set(2.0, 2.0, 2.0);
+	model.position.set(2.0,2.0,1.0)
+    scene.add(model);
+});
+
+loader.load('/fish.glb', function (gltf) {
+    const model = gltf.scene;
+    model.scale.set(2.0, 2.0, 2.0);
+	model.position.set(2.0,1.0,2.0)
+    scene.add(model);
+});
+
+loader.load('/fish.glb', function (gltf) {
+    const model = gltf.scene;
+    model.scale.set(2.0, 2.0, 2.0);
+	model.position.set(1.5,1.5,1.5)
+    scene.add(model);
+});
+
+
+// animation(to be added)
 function animate() {
-	requestAnimationFrame( animate );
-
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
-
-	renderer.render( scene, camera );
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
 }
-
 animate();
