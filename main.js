@@ -23,10 +23,7 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 camera.position.set(-90, 12, -134);
 camera.lookAt(scene.position);
 
-// grids that represent ground plane
-//DELETE WHEN DONE IF NECASSARY 
-let gridHelper = new THREE.GridHelper();
-scene.add(gridHelper);
+
 
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
@@ -86,34 +83,29 @@ scene.add( water );
 loader.load('/fish.glb', function (gltf) {
     fish1 = gltf.scene;
     fish1.scale.set(2.0, 2.0, 2.0);
-	fish1.position.set(1.0,1.0,1.0)
     scene.add(fish1);
 	
 });
 loader.load('/fish.glb', function (gltf) {
     fish2 = gltf.scene;
     fish2.scale.set(2.0, 2.0, 2.0);
-	fish2.position.set(2.0,1.0,1.0)
     scene.add(fish2);
 });
 loader.load('/fish.glb', function (gltf) {
     fish3 = gltf.scene;
     fish3.scale.set(2.0, 2.0, 2.0);
-	fish3.position.set(2.0,2.0,1.0)
     scene.add(fish3);
 });
 
 loader.load('/fish.glb', function (gltf) {
     fish4 = gltf.scene;
     fish4.scale.set(2.0, 2.0, 2.0);
-	fish4.position.set(2.0,1.0,2.0)
     scene.add(fish4);
 });
 
 loader.load('/fish.glb', function (gltf) {
     fish5 = gltf.scene;
     fish5.scale.set(2.0, 2.0, 2.0);
-	fish5.position.set(1.5,1.5,1.5)
     scene.add(fish5);
 	
 });
@@ -142,16 +134,19 @@ function onMouseMove(event) {
 	var distance = - camera.position.z / dir.z;
 	var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
 	console.log(pos);
+	if(pos.y>0)pos.y = 0;
 	fish1.position.copy(pos);
-	pos.x+=0.5;
-	pos.y+=0.5;
+	pos.x+=10.5;
+	
 	fish2.position.copy(pos);
-	pos.x+=0.5;
+	pos.x+=3.5;
+	
 	fish3.position.copy(pos);
-	pos.y+=0.5;
+	pos.x-=10
 	fish4.position.copy(pos);
-	pos.x+=0.5;
-	pos.y+=0.5;
+	pos.x-=5.5;
+
 	fish5.position.copy(pos);
+	
 
 };
