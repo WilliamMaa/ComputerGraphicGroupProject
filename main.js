@@ -5,6 +5,9 @@ import { Water } from 'three/addons/objects/Water.js';
 import { Sky } from 'three/addons/objects/Sky.js';
 
 var fish1,fish2,fish3,fish4,fish5;
+let mixer, mixer2, mixer3, mixer4, mixer5;
+const mixers = [];
+let clock = new THREE.Clock();
 // obtain window size
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
@@ -79,35 +82,108 @@ water.rotation.x = - Math.PI / 2;
 scene.add( water );
 
 // fish models
-// loader = new GLTFLoader();
-loader.load('/fish.glb', function (gltf) {
+const gltfLoader = new GLTFLoader();
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
     fish1 = gltf.scene;
-    fish1.scale.set(2.0, 2.0, 2.0);
+	fish1.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer = new THREE.AnimationMixer(fish1);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.8;
+            action.play();
+        }
+    }
     scene.add(fish1);
-	
+	mixers.push(mixer);
 });
-loader.load('/fish.glb', function (gltf) {
+
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
     fish2 = gltf.scene;
-    fish2.scale.set(2.0, 2.0, 2.0);
+	fish2.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer2 = new THREE.AnimationMixer(fish2);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer2.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+			action.timeScale = 0.4;
+            action.play();
+        }
+    }
     scene.add(fish2);
-});
-loader.load('/fish.glb', function (gltf) {
+	mixers.push(mixer2);
+});gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
     fish3 = gltf.scene;
-    fish3.scale.set(2.0, 2.0, 2.0);
+	fish3.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer3 = new THREE.AnimationMixer(fish3);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer3.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.play();
+        }
+    }
     scene.add(fish3);
-});
-
-loader.load('/fish.glb', function (gltf) {
+	mixers.push(mixer3);
+});gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
     fish4 = gltf.scene;
-    fish4.scale.set(2.0, 2.0, 2.0);
+	fish4.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer4 = new THREE.AnimationMixer(fish4);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer4.clipAction(animation);
+            action.setLoop(THREE.LoopRepeat);
+			action.timeScale = 0.7;
+            action.play();
+        }
+    }
     scene.add(fish4);
-});
-
-loader.load('/fish.glb', function (gltf) {
+	mixers.push(mixer4);
+});gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
     fish5 = gltf.scene;
-    fish5.scale.set(2.0, 2.0, 2.0);
+	fish5.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer5 = new THREE.AnimationMixer(fish5);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer5.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+			action.timeScale = 0.6;
+            action.play();
+        }
+    }
     scene.add(fish5);
-	
+	mixers.push(mixer5);
 });
 
 
@@ -116,6 +192,8 @@ function animate() {
 	requestAnimationFrame( animate );
     controls.update()
 	renderer.render( scene, camera );
+	const delta = clock.getDelta();
+	for ( const mixer of mixers ) mixer.update( delta );
 }
 animate();
 //mouse variable
