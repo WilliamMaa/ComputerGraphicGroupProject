@@ -14,8 +14,8 @@ const windowHeight = window.innerHeight;
 
 // renderer definition
 const canvas = document.getElementById('canvas')
-// let renderer = new THREE.WebGLRenderer({ canvas: canvas });
-// renderer.setSize(windowWidth, windowHeight);
+let renderer = new THREE.WebGLRenderer({ canvas: canvas });
+renderer.setSize(windowWidth, windowHeight);
 
 // creating scene
 const scene = new THREE.Scene();
@@ -175,52 +175,5 @@ function animate() {
 	renderer.render( scene, camera );
 	const delta = clock.getDelta();
 	for ( const mixer of mixers ) mixer.update( delta );
-}
-animate();
-//mouse variable
-var mouse = { x: 0, y: 0 };
-document.addEventListener('mousemove', onMouseMove, false);
-
-function onMouseMove(event) {
-	// Update the mouse variable
-	event.preventDefault();
-	mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-	mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-	var vector = new THREE.Vector3(mouse.x, mouse.y, 0.5);
-	vector.unproject(camera);
-	var dir = vector.sub(camera.position).normalize();
-	var distance = - camera.position.z / dir.z;
-	var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
-	console.log(pos);
-	if(pos.y>0)pos.y = 0;
-	fish1.position.copy(pos);
-	pos.x+=10.5;
-	
-	fish2.position.copy(pos);
-	pos.x+=3.5;
-	
-	fish3.position.copy(pos);
-	pos.x-=10
-	fish4.position.copy(pos);
-	pos.x-=5.5;
-
-	fish5.position.copy(pos);
-	
-
-};
-
-const controls = new OrbitControls(camera, renderer.domElement)
-controls.enableDamping = true
-controls.target.set(0, 1, 0)
-
-controls.addEventListener("change", event => {
-	// console.log( controls.object.position ); 
-})
-
-// animation(to be added)
-function animate() {
-	requestAnimationFrame(animate);
-	controls.update()
-	renderer.render(scene, camera);
 }
 animate();

@@ -186,10 +186,6 @@ const water = new THREE.Mesh(new THREE.BoxGeometry(200, .001, 200), waterMateria
 water.position.set(0, .8, 0);
 scene.add(water);
 
-const gui = new GUI();
-var floorPosition = new THREE.Vector3(0, 1, 0);
-gui.add(floorPosition, 'y', 0, 2, .001).name('position');
-
 // animation(to be added)
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
