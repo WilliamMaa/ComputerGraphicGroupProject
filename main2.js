@@ -289,48 +289,57 @@ function onMouseMove(event) {
   var dir = vector.sub(camera.position).normalize();
   var distance = - camera.position.z / dir.z;
   var pos = camera.position.clone().add(dir.multiplyScalar(distance));
-  // console.log(pos);
+   console.log(pos);
   var originalx=pos.x;
-	if(pos.y>-5)pos.y = -5;
+  var rotation1 = 330;
+  var rotation2 = 0;
+  pos.z=pos.y;
+	if(pos.y>0)pos.y = 0;
     if(pos.x<-50)pos.x = -50;
-    if(pos.y<-20)pos.y = -20;
+    if(pos.y<-5)pos.y = 0;
     if(pos.x>50)pos.x = 50;
+    
     var oy2=pos.y;
     var ox =pos.x;
     pos.y+=Math.sin(count*0.15);
+    pos.y-=2.7;
     pos.x+=Math.sin(count*0.1+0.2);
     count++;
+    pos.z+=Math.sin(count*0.1)*5;
 	fish1.position.copy(pos);
-    if(pos.x<originalx)fish1.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish1.rotation.set(0,0,0);
+    rotation1+=Math.sin(count*0.1)*0.2;
+    rotation2+=Math.sin(count*0.1)*0.2;
+    if(pos.x<originalx)fish1.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish1.rotation.set(0,rotation2,0);
 
 	pos.x+=10.5;
     pos.x+=Math.sin(count*0.1);
     pos.y=oy2+Math.sin(count*0.15+0.3)*2;
     pos.y-=8.9;
 	fish2.position.copy(pos);
-    if(pos.x<originalx)fish2.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish2.rotation.set(0,0,0);
+    if(pos.x<originalx)fish2.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish2.rotation.set(0,rotation2,0);
 
 	pos.x+=3.5;
     pos.y=oy2+Math.sin(count*0.15+0.7);
-    pos.y+=1;
+    pos.y-=2.7;
 	fish3.position.copy(pos);
-    if(pos.x<originalx)fish3.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish3.rotation.set(0,0,0);
-
+    if(pos.x<originalx)fish3.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish3.rotation.set(0,rotation2,0);
+    rotation1+=Math.sin(count*0.1)*0.2;
+    rotation2+=Math.sin(count*0.1)*0.2;
 	pos.x-=10;
     pos.y=oy2+Math.sin(count*0.15+0.5)*1.7;
     pos.y-=4.9;
-    if(pos.x<originalx)fish4.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish4.rotation.set(0,0,0);
+    if(pos.x<originalx)fish4.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish4.rotation.set(0,rotation2,0);
 	fish4.position.copy(pos);
 
 	pos.x-=6.5;
     pos.y=oy2+Math.cos(count*0.1+0.32);
     pos.y-=7.9;
-    if(pos.x<originalx)fish5.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish5.rotation.set(0,0,0);
+    if(pos.x<originalx)fish5.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish5.rotation.set(0,rotation2,0);
 	fish5.position.copy(pos);
     
     pos.x=ox;
@@ -339,38 +348,42 @@ function onMouseMove(event) {
     pos.x+=Math.cos(count*0.1+0.2);
     pos.x-=5.5;
     pos.y+=Math.cos(count*0.1);
-    if(pos.x<originalx)fish6.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish6.rotation.set(0,0,0);
+    pos.y-=1.7;
+    if(pos.x<originalx)fish6.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish6.rotation.set(0,rotation2,0);
     fish6.position.copy(pos);
 
     pos.x-=2.5;
     pos.y=oy2+Math.cos(count*0.11+0.4)*2.6;
     pos.y-=3.9;
-    if(pos.x<originalx)fish7.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish7.rotation.set(0,0,0);
+    if(pos.x<originalx)fish7.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish7.rotation.set(0,rotation2,0);
     fish7.position.copy(pos);
 
     pos.x-=5.5;
     pos.x+=Math.sin(count*0.1+0.9);
     pos.y=oy2+Math.cos(count*0.1+0.8);
     pos.y-=1.9;
-    if(pos.x<originalx)fish8.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish8.rotation.set(0,0,0);
+    if(pos.x<originalx)fish8.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish8.rotation.set(0,rotation2,0);
     fish8.position.copy(pos);
+
+    rotation1+=Math.sin(count*0.1)*0.2;
+    rotation2+=Math.cos(count*0.1)*0.2;
 
     pos.x-=7.5;
     pos.y=oy2+Math.cos(count*0.13+0.6);
-    pos.y-=9.9;
-    if(pos.x<originalx)fish9.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish9.rotation.set(0,0,0);
+    pos.y-=2.9;
+    if(pos.x<originalx)fish9.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish9.rotation.set(0,rotation2,0);
     fish9.position.copy(pos);
 
     pos.x-=5.5;
     pos.x+=Math.sin(count*0.1+0.2)*1.8;
-    pos.y=oy2+Math.cos(count*0.1+0.1)*1.9;
-    pos.y+=2.9;
-    if(pos.x<originalx)fish10.rotation.set(0,330,0);
-    else if(pos.x>originalx)fish10.rotation.set(0,0,0);
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish10.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish10.rotation.set(0,rotation2,0);
     fish10.position.copy(pos);
 
 };
