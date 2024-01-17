@@ -11,6 +11,8 @@ var fish1, fish2, fish3, fish4, fish5;
 let mixer, mixer2, mixer3, mixer4, mixer5;
 var fish6,fish7,fish8,fish9,fish10;
 let mixer6, mixer7, mixer8, mixer9, mixer10;
+var fish11,fish12,fish13,fish14,fish15;
+let mixer11, mixer12, mixer13, mixer14, mixer15;
 const mixers = [];
 let clock = new THREE.Clock();
 // obtain window size
@@ -273,6 +275,111 @@ gltfLoader.load('fish.glb',function(data){
     scene.add(fish10);
 	mixers.push(mixer10);
 });
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish11 = gltf.scene;
+	fish11.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer11 = new THREE.AnimationMixer(fish11);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer11.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.61;
+            action.play();
+        }
+    }
+    scene.add(fish11);
+	mixers.push(mixer11);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish12 = gltf.scene;
+	fish12.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer12 = new THREE.AnimationMixer(fish12);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer12.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.43;
+            action.play();
+        }
+    }
+    scene.add(fish12);
+	mixers.push(mixer12);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish13 = gltf.scene;
+	fish13.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer13 = new THREE.AnimationMixer(fish13);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer13.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.58;
+            action.play();
+        }
+    }
+    scene.add(fish13);
+	mixers.push(mixer13);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish14 = gltf.scene;
+	fish14.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer14 = new THREE.AnimationMixer(fish14);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer14.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.84;
+            action.play();
+        }
+    }
+    scene.add(fish14);
+	mixers.push(mixer14);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish15 = gltf.scene;
+	fish15.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer15 = new THREE.AnimationMixer(fish15);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer15.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.24;
+            action.play();
+        }
+    }
+    scene.add(fish15);
+	mixers.push(mixer15);
+});
 
 //mouse variable
 var mouse = { x: 0, y: 0 };
@@ -307,8 +414,8 @@ function onMouseMove(event) {
     count++;
     pos.z+=Math.sin(count*0.1)*5;
 	fish1.position.copy(pos);
-    rotation1+=Math.sin(count*0.1)*0.2;
-    rotation2+=Math.sin(count*0.1)*0.2;
+    rotation1+=Math.sin(count*0.1)*0.1;
+    rotation2+=Math.sin(count*0.1)*0.1;
     if(pos.x<originalx)fish1.rotation.set(0,rotation1,0);
     else if(pos.x>originalx)fish1.rotation.set(0,rotation2,0);
 
@@ -326,8 +433,8 @@ function onMouseMove(event) {
 	fish3.position.copy(pos);
     if(pos.x<originalx)fish3.rotation.set(0,rotation1,0);
     else if(pos.x>originalx)fish3.rotation.set(0,rotation2,0);
-    rotation1+=Math.sin(count*0.1)*0.2;
-    rotation2+=Math.sin(count*0.1)*0.2;
+    rotation1+=Math.sin(count*0.1)*0.1;
+    rotation2+=Math.sin(count*0.1)*0.1;
 	pos.x-=10;
     pos.y=oy2+Math.sin(count*0.15+0.5)*1.7;
     pos.y-=4.9;
@@ -368,23 +475,65 @@ function onMouseMove(event) {
     else if(pos.x>originalx)fish8.rotation.set(0,rotation2,0);
     fish8.position.copy(pos);
 
-    rotation1+=Math.sin(count*0.1)*0.2;
-    rotation2+=Math.cos(count*0.1)*0.2;
+    rotation1+=Math.sin(count*0.1)*0.1;
+    rotation2+=Math.cos(count*0.1)*0.1;
 
-    pos.x-=7.5;
+    pos.x-=2.5;
     pos.y=oy2+Math.cos(count*0.13+0.6);
-    pos.y-=2.9;
+    pos.y-=5.9;
     if(pos.x<originalx)fish9.rotation.set(0,rotation1,0);
     else if(pos.x>originalx)fish9.rotation.set(0,rotation2,0);
     fish9.position.copy(pos);
 
-    pos.x-=5.5;
-    pos.x+=Math.sin(count*0.1+0.2)*1.8;
+    pos.x-=3.5;
+    pos.x+=Math.sin(count*0.1+0.2)*1.5;
     pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
     pos.y-=1.9;
     if(pos.x<originalx)fish10.rotation.set(0,rotation1,0);
     else if(pos.x>originalx)fish10.rotation.set(0,rotation2,0);
     fish10.position.copy(pos);
+
+    pos.x+=20;
+    pos.z-=8.5;
+    pos.z+=Math.sin(count*0.1+0.2)*1.1;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.6;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish11.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish11.rotation.set(0,rotation2,0);
+    fish11.position.copy(pos);
+
+    pos.x-=7.5;
+    pos.x+=Math.sin(count*0.1+0.2)*1.2;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
+    pos.y-=3.9;
+    if(pos.x<originalx)fish12.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish12.rotation.set(0,rotation2,0);
+    fish12.position.copy(pos);
+
+    pos.x-=3.5;
+    pos.x+=Math.sin(count*0.1+0.2)*1.8;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.3;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish13.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish13.rotation.set(0,rotation2,0);
+    fish13.position.copy(pos);
+
+    pos.z+=20;
+    pos.x+=13.5;
+    pos.x+=Math.sin(count*0.1+0.2)*0.7;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish10.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish10.rotation.set(0,rotation2,0);
+    fish14.position.copy(pos);
+
+    pos.x-=3.5;
+    pos.x+=Math.sin(count*0.1+0.2)*0.5;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish15.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish15.rotation.set(0,rotation2,0);
+    fish15.position.copy(pos);
 
 };
 
@@ -446,7 +595,6 @@ const water = new THREE.Mesh(new THREE.BoxGeometry(200, .001, 200), waterMateria
 water.position.set(0, .8, 0);
 scene.add(water);
 
-// animation(to be added)
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
 controls.target.set(0, 1, 0)
