@@ -148,9 +148,7 @@ scene.add(skyAmbientLight);
 scene.add(waterAmbientLight);
 
 
-var clock = new THREE.Clock();
 // objects
-
 const textureLoader = new THREE.TextureLoader();
 const iceDiffuse = textureLoader.load('./textures/water.jpg');
 iceDiffuse.wrapS = THREE.RepeatWrapping;
@@ -185,6 +183,20 @@ waterMaterial.transparent = true;
 const water = new THREE.Mesh(new THREE.BoxGeometry(200, .001, 200), waterMaterial);
 water.position.set(0, .8, 0);
 scene.add(water);
+
+// caustic
+var floor = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new MeshStandardNodeMaterial({ colorNode: iceColorNode }));
+floor.position.set(0, - 5, 0);
+scene.add(floor);
+const waterPosY = positionWorld.y.sub(water.position.y);
+
+let transition = waterPosY.add(.1).saturate().oneMinus();
+transition = waterPosY.lessThan(0).cond(transition, normalWorld.y.mix(transition, 0)).toVar();
+
+const colorNode = transition.mix(material.colorNode, material.colorNode.add(waterLayer0));
+
+//material.colorNode = colorNode;
+floor.material.colorNode = colorNode;
 
 // animation(to be added)
 const controls = new OrbitControls(camera, renderer.domElement)
