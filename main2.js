@@ -8,6 +8,13 @@ import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 var fish1, fish2, fish3, fish4, fish5;
+let mixer, mixer2, mixer3, mixer4, mixer5;
+var fish6,fish7,fish8,fish9,fish10;
+let mixer6, mixer7, mixer8, mixer9, mixer10;
+var fish11,fish12,fish13,fish14,fish15;
+let mixer11, mixer12, mixer13, mixer14, mixer15;
+const mixers = [];
+let clock = new THREE.Clock();
 // obtain window size
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
@@ -60,45 +67,323 @@ loader.load('./ruin_building.glb', function (gltf) {
   console.log(error);
 });
 
-// fish models
-// loader = new GLTFLoader();
-loader.load('/fish.glb', function (gltf) {
-  fish1 = gltf.scene;
-  fish1.scale.set(2.0, 2.0, 2.0);
-  fish1.position.set(1.0, 1.0, 1.0)
-  scene.add(fish1);
-
-});
-loader.load('/fish.glb', function (gltf) {
-  fish2 = gltf.scene;
-  fish2.scale.set(2.0, 2.0, 2.0);
-  fish2.position.set(2.0, 1.0, 1.0)
-  scene.add(fish2);
-});
-loader.load('/fish.glb', function (gltf) {
-  fish3 = gltf.scene;
-  fish3.scale.set(2.0, 2.0, 2.0);
-  fish3.position.set(2.0, 2.0, 1.0)
-  scene.add(fish3);
-});
-
-loader.load('/fish.glb', function (gltf) {
-  fish4 = gltf.scene;
-  fish4.scale.set(2.0, 2.0, 2.0);
-  fish4.position.set(2.0, 1.0, 2.0)
-  scene.add(fish4);
+const gltfLoader = new GLTFLoader();
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish1 = gltf.scene;
+	fish1.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer = new THREE.AnimationMixer(fish1);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.8;
+            action.play();
+        }
+    }
+    scene.add(fish1);
+	mixers.push(mixer);
 });
 
-loader.load('/fish.glb', function (gltf) {
-  fish5 = gltf.scene;
-  fish5.scale.set(2.0, 2.0, 2.0);
-  fish5.position.set(1.5, 1.5, 1.5)
-  scene.add(fish5);
-
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish2 = gltf.scene;
+	fish2.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer2 = new THREE.AnimationMixer(fish2);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer2.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+			action.timeScale = 0.4;
+            action.play();
+        }
+    }
+    scene.add(fish2);
+	mixers.push(mixer2);
+});gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish3 = gltf.scene;
+	fish3.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer3 = new THREE.AnimationMixer(fish3);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer3.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.play();
+        }
+    }
+    scene.add(fish3);
+	mixers.push(mixer3);
+});gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish4 = gltf.scene;
+	fish4.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer4 = new THREE.AnimationMixer(fish4);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer4.clipAction(animation);
+            action.setLoop(THREE.LoopRepeat);
+			action.timeScale = 0.7;
+            action.play();
+        }
+    }
+    scene.add(fish4);
+	mixers.push(mixer4);
+});gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish5 = gltf.scene;
+	fish5.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer5 = new THREE.AnimationMixer(fish5);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer5.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+			action.timeScale = 0.6;
+            action.play();
+        }
+    }
+    scene.add(fish5);
+	mixers.push(mixer5);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish6 = gltf.scene;
+	fish6.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer6 = new THREE.AnimationMixer(fish6);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer6.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.45;
+            action.play();
+        }
+    }
+    scene.add(fish6);
+	mixers.push(mixer6);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish7 = gltf.scene;
+	fish7.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer7 = new THREE.AnimationMixer(fish7);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer7.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.86;
+            action.play();
+        }
+    }
+    scene.add(fish7);
+	mixers.push(mixer7);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish8 = gltf.scene;
+	fish8.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer8 = new THREE.AnimationMixer(fish8);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer8.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.28;
+            action.play();
+        }
+    }
+    scene.add(fish8);
+	mixers.push(mixer8);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish9 = gltf.scene;
+	fish9.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer9 = new THREE.AnimationMixer(fish9);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer9.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.73;
+            action.play();
+        }
+    }
+    scene.add(fish9);
+	mixers.push(mixer9);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish10 = gltf.scene;
+	fish10.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer10 = new THREE.AnimationMixer(fish10);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer10.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.54;
+            action.play();
+        }
+    }
+    scene.add(fish10);
+	mixers.push(mixer10);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish11 = gltf.scene;
+	fish11.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer11 = new THREE.AnimationMixer(fish11);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer11.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.61;
+            action.play();
+        }
+    }
+    scene.add(fish11);
+	mixers.push(mixer11);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish12 = gltf.scene;
+	fish12.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer12 = new THREE.AnimationMixer(fish12);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer12.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.43;
+            action.play();
+        }
+    }
+    scene.add(fish12);
+	mixers.push(mixer12);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish13 = gltf.scene;
+	fish13.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer13 = new THREE.AnimationMixer(fish13);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer13.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.58;
+            action.play();
+        }
+    }
+    scene.add(fish13);
+	mixers.push(mixer13);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish14 = gltf.scene;
+	fish14.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer14 = new THREE.AnimationMixer(fish14);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer14.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.84;
+            action.play();
+        }
+    }
+    scene.add(fish14);
+	mixers.push(mixer14);
+});
+gltfLoader.load('fish.glb',function(data){
+    const gltf = data;
+    fish15 = gltf.scene;
+	fish15.scale.set(2.0, 2.0, 2.0);
+    const animations = gltf.animations;
+ 
+    if(animations && animations.length) {
+ 
+        mixer15 = new THREE.AnimationMixer(fish15);
+ 
+        for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i];
+            let action = mixer15.clipAction(animation) ;
+            action.setLoop(THREE.LoopRepeat);
+            action.timeScale = 0.24;
+            action.play();
+        }
+    }
+    scene.add(fish15);
+	mixers.push(mixer15);
 });
 
 //mouse variable
 var mouse = { x: 0, y: 0 };
+var count=0;
 document.addEventListener('mousemove', onMouseMove, false);
 
 function onMouseMove(event) {
@@ -111,18 +396,144 @@ function onMouseMove(event) {
   var dir = vector.sub(camera.position).normalize();
   var distance = - camera.position.z / dir.z;
   var pos = camera.position.clone().add(dir.multiplyScalar(distance));
-  // console.log(pos);
-  fish1.position.copy(pos);
-  pos.x += 0.5;
-  pos.y += 0.5;
-  fish2.position.copy(pos);
-  pos.x += 0.5;
-  fish3.position.copy(pos);
-  pos.y += 0.5;
-  fish4.position.copy(pos);
-  pos.x += 0.5;
-  pos.y += 0.5;
-  fish5.position.copy(pos);
+   console.log(pos);
+  var originalx=pos.x;
+  var rotation1 = 330;
+  var rotation2 = 0;
+  pos.z=pos.y;
+	if(pos.y>0)pos.y = 0;
+    if(pos.x<-50)pos.x = -50;
+    if(pos.y<-5)pos.y = 0;
+    if(pos.x>50)pos.x = 50;
+    
+    var oy2=pos.y;
+    var ox =pos.x;
+    pos.y+=Math.sin(count*0.15);
+    pos.y-=2.7;
+    pos.x+=Math.sin(count*0.1+0.2);
+    count++;
+    pos.z+=Math.sin(count*0.1)*5;
+	fish1.position.copy(pos);
+    rotation1+=Math.sin(count*0.1)*0.1;
+    rotation2+=Math.sin(count*0.1)*0.1;
+    if(pos.x<originalx)fish1.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish1.rotation.set(0,rotation2,0);
+
+	pos.x+=10.5;
+    pos.x+=Math.sin(count*0.1);
+    pos.y=oy2+Math.sin(count*0.15+0.3)*2;
+    pos.y-=8.9;
+	fish2.position.copy(pos);
+    if(pos.x<originalx)fish2.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish2.rotation.set(0,rotation2,0);
+
+	pos.x+=3.5;
+    pos.y=oy2+Math.sin(count*0.15+0.7);
+    pos.y-=2.7;
+	fish3.position.copy(pos);
+    if(pos.x<originalx)fish3.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish3.rotation.set(0,rotation2,0);
+    rotation1+=Math.sin(count*0.1)*0.1;
+    rotation2+=Math.sin(count*0.1)*0.1;
+	pos.x-=10;
+    pos.y=oy2+Math.sin(count*0.15+0.5)*1.7;
+    pos.y-=4.9;
+    if(pos.x<originalx)fish4.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish4.rotation.set(0,rotation2,0);
+	fish4.position.copy(pos);
+
+	pos.x-=6.5;
+    pos.y=oy2+Math.cos(count*0.1+0.32);
+    pos.y-=7.9;
+    if(pos.x<originalx)fish5.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish5.rotation.set(0,rotation2,0);
+	fish5.position.copy(pos);
+    
+    pos.x=ox;
+    pos.y=oy2;
+
+    pos.x+=Math.cos(count*0.1+0.2);
+    pos.x-=5.5;
+    pos.y+=Math.cos(count*0.1);
+    pos.y-=1.7;
+    if(pos.x<originalx)fish6.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish6.rotation.set(0,rotation2,0);
+    fish6.position.copy(pos);
+
+    pos.x-=2.5;
+    pos.y=oy2+Math.cos(count*0.11+0.4)*2.6;
+    pos.y-=3.9;
+    if(pos.x<originalx)fish7.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish7.rotation.set(0,rotation2,0);
+    fish7.position.copy(pos);
+
+    pos.x-=5.5;
+    pos.x+=Math.sin(count*0.1+0.9);
+    pos.y=oy2+Math.cos(count*0.1+0.8);
+    pos.y-=1.9;
+    if(pos.x<originalx)fish8.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish8.rotation.set(0,rotation2,0);
+    fish8.position.copy(pos);
+
+    rotation1+=Math.sin(count*0.1)*0.1;
+    rotation2+=Math.cos(count*0.1)*0.1;
+
+    pos.x-=2.5;
+    pos.y=oy2+Math.cos(count*0.13+0.6);
+    pos.y-=5.9;
+    if(pos.x<originalx)fish9.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish9.rotation.set(0,rotation2,0);
+    fish9.position.copy(pos);
+
+    pos.x-=3.5;
+    pos.x+=Math.sin(count*0.1+0.2)*1.5;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish10.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish10.rotation.set(0,rotation2,0);
+    fish10.position.copy(pos);
+
+    pos.x+=20;
+    pos.z-=8.5;
+    pos.z+=Math.sin(count*0.1+0.2)*1.1;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.6;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish11.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish11.rotation.set(0,rotation2,0);
+    fish11.position.copy(pos);
+
+    pos.x-=7.5;
+    pos.x+=Math.sin(count*0.1+0.2)*1.2;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
+    pos.y-=3.9;
+    if(pos.x<originalx)fish12.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish12.rotation.set(0,rotation2,0);
+    fish12.position.copy(pos);
+
+    pos.x-=3.5;
+    pos.x+=Math.sin(count*0.1+0.2)*1.8;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.3;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish13.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish13.rotation.set(0,rotation2,0);
+    fish13.position.copy(pos);
+
+    pos.z+=20;
+    pos.x+=13.5;
+    pos.x+=Math.sin(count*0.1+0.2)*0.7;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish10.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish10.rotation.set(0,rotation2,0);
+    fish14.position.copy(pos);
+
+    pos.x-=3.5;
+    pos.x+=Math.sin(count*0.1+0.2)*0.5;
+    pos.y=oy2+Math.cos(count*0.1+0.1)*0.7;
+    pos.y-=1.9;
+    if(pos.x<originalx)fish15.rotation.set(0,rotation1,0);
+    else if(pos.x>originalx)fish15.rotation.set(0,rotation2,0);
+    fish15.position.copy(pos);
 
 };
 
@@ -146,7 +557,6 @@ const skyAmbientLight = new THREE.HemisphereLight(0x74ccf4, 0, 1);
 scene.add(sunLight);
 scene.add(skyAmbientLight);
 scene.add(waterAmbientLight);
-
 
 // objects
 const textureLoader = new THREE.TextureLoader();
@@ -198,7 +608,6 @@ const colorNode = transition.mix(material.colorNode, material.colorNode.add(wate
 //material.colorNode = colorNode;
 floor.material.colorNode = colorNode;
 
-// animation(to be added)
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
 controls.target.set(0, 1, 0)
@@ -207,8 +616,10 @@ controls.addEventListener("change", event => {
   // console.log( controls.object.position ); 
 })
 function animate() {
-  // requestAnimationFrame(animate);
+  //requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
+  const delta = clock.getDelta();
+	for ( const mixer of mixers ) mixer.update( delta );
 }
 animate();
