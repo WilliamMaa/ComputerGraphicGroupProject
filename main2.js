@@ -32,12 +32,32 @@ document.body.appendChild(renderer.domElement);
 
 // creating scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xffffff);
-const ambientlight = new THREE.AmbientLight();
-scene.add(ambientlight);
+// scene.background = color(0x6FA8DC)
+scene.backgroundNode = normalWorld.y.mix( color( 0x6FA8DC ), color( 0x0000FF ) );
+
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(-90, 12, -134);
 camera.lookAt(scene.position);
+
+const sunLight = new THREE.DirectionalLight(0xFFE499, 5);
+sunLight.castShadow = true;
+sunLight.shadow.camera.near = .1;
+sunLight.shadow.camera.far = 100;
+sunLight.shadow.camera.right = 200;
+sunLight.shadow.camera.left = - 200;
+sunLight.shadow.camera.top = 200;
+sunLight.shadow.camera.bottom = - 50;
+sunLight.shadow.mapSize.width = 2048;
+sunLight.shadow.mapSize.height = 2048;
+sunLight.shadow.bias = - 0.001;
+sunLight.position.set(-80, 10, -100);
+
+const waterAmbientLight = new THREE.HemisphereLight(0x073763, 0x9FC5E8, 5);
+const skyAmbientLight = new THREE.HemisphereLight(0x9FC5E8, 0, 1);
+
+scene.add(sunLight);
+scene.add(skyAmbientLight);
+scene.add(waterAmbientLight);
 
 const loader = new GLTFLoader();
 loader.load('./ruin_building.glb', function (gltf) {
@@ -46,6 +66,9 @@ loader.load('./ruin_building.glb', function (gltf) {
       const m = child
       m.receiveShadow = true
       m.castShadow = true
+
+    //   const newMaterial = waterIntensity.mix(m.material.color)
+    //   m.material = newMaterial;
     }
     if ((child).isLight) {
       const l = child
@@ -60,7 +83,7 @@ loader.load('./ruin_building.glb', function (gltf) {
   gltf.scene.position.z = 0;
   // console.log(gltf.scene.position)
   scene.add(gltf.scene);
-  camera.lookAt(gltf.scene.position)
+  camera.lookAt(gltf.scene.position);
 }, function (xhr) {
   console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
 }, function (error) {
@@ -536,41 +559,6 @@ function onMouseMove(event) {
     fish15.position.copy(pos);
 
 };
-
-
-const sunLight = new THREE.DirectionalLight(0xFFE499, 5);
-sunLight.castShadow = true;
-sunLight.shadow.camera.near = .1;
-sunLight.shadow.camera.far = 3;
-sunLight.shadow.camera.right = 2;
-sunLight.shadow.camera.left = - 2;
-sunLight.shadow.camera.top = 2;
-sunLight.shadow.camera.bottom = - 2;
-sunLight.shadow.mapSize.width = 2048;
-sunLight.shadow.mapSize.height = 2048;
-sunLight.shadow.bias = - 0.001;
-sunLight.position.set(1, 3, 1);
-
-const waterAmbientLight = new THREE.HemisphereLight(0x333366, 0x74ccf4, 5);
-const skyAmbientLight = new THREE.HemisphereLight(0x74ccf4, 0, 1);
-
-scene.add(sunLight);
-scene.add(skyAmbientLight);
-scene.add(waterAmbientLight);
-
-// objects
-
-const textureLoader = new THREE.TextureLoader();
-const iceDiffuse = textureLoader.load('./textures/water.jpg');
-iceDiffuse.wrapS = THREE.RepeatWrapping;
-iceDiffuse.wrapT = THREE.RepeatWrapping;
-iceDiffuse.colorSpace = THREE.NoColorSpace;
-
-const iceColorNode = triplanarTexture(texture(iceDiffuse));
-
-const geometry = new THREE.IcosahedronGeometry(1, 3);
-const material = new MeshStandardNodeMaterial({ colorNode: iceColorNode });
-
 // water
 
 const depthEffect = depthTexture().distance(depth).remapClamp(0, .05);
@@ -582,18 +570,27 @@ const waterLayer0 = mx_worley_noise_float(floorUV.mul(4).add(timer));
 const waterLayer1 = mx_worley_noise_float(floorUV.mul(2).add(timer));
 
 const waterIntensity = waterLayer0.mul(waterLayer1).mul(1.4);
-const waterColor = waterIntensity.mix(color(0x0f5e9c), color(0x74ccf4));
+const waterColor = waterIntensity.mix(color(0x0f5e9c), color(0x9FC5E8));
 const viewportTexture = viewportSharedTexture();
 
 const waterMaterial = new MeshBasicNodeMaterial();
 waterMaterial.colorNode = waterColor;
-waterMaterial.backdropNode = depthEffect.mul(3).min(1.4).mix(viewportTexture, viewportTexture.mul(color(0x74ccf4)));
+waterMaterial.backdropNode = depthEffect.mul(3).min(1.4).mix(viewportTexture, viewportTexture.mul(color(0x9FC5E8)));
 waterMaterial.backdropAlphaNode = depthEffect.oneMinus();
 waterMaterial.transparent = true;
 
 const water = new THREE.Mesh(new THREE.BoxGeometry(200, .001, 200), waterMaterial);
 water.position.set(0, .8, 0);
 scene.add(water);
+
+const groundColor = waterIntensity.mix(color(0x422835), color(0x8E6D7F));
+var groundMaterial = new MeshBasicNodeMaterial();
+groundMaterial.colorNode = groundColor;
+
+const ground = new THREE.Mesh(new THREE.BoxGeometry(200, .001, 200), groundMaterial);
+ground.position.set(0, -14, 0);
+scene.add(ground);
+
 
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
