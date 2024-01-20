@@ -599,6 +599,21 @@ const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
 controls.target.set(0, 1, 0)
 
+//ocean floor
+const floorTexture = new THREE.TextureLoader().load('./textures/oceanFloor.jpg');
+floorTexture.wrapS = THREE.RepeatWrapping;
+floorTexture.wrapT = THREE.RepeatWrapping;
+floorTexture.repeat.set(100,100);
+
+const floorGeometry = new THREE.PlaneGeometry( 200, 200 );
+//const floorMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+const floorMaterial = new THREE.MeshBasicMaterial( { map:floorTexture} );
+
+const floor = new THREE.Mesh( floorGeometry, floorMaterial );
+floor.rotateX(- Math.PI / 2);
+scene.add(floor);
+floor.position.set(0,-14,0);
+
 controls.addEventListener("change", event => {
   // console.log( controls.object.position ); 
 })
