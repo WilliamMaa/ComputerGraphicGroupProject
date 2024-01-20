@@ -584,7 +584,8 @@ water.position.set(0, .8, 0);
 scene.add(water);
 
 const groundColor = waterIntensity.mix(color(0x422835), color(0x8E6D7F));
-var groundMaterial = new MeshBasicNodeMaterial();
+//var groundMaterial = new MeshBasicNodeMaterial();
+var groundMaterial = new MeshBasicNodeMaterial({opacity:0.5, transparent: true});
 groundMaterial.colorNode = groundColor;
 
 const ground = new THREE.Mesh(new THREE.BoxGeometry(200, .001, 200), groundMaterial);
@@ -604,12 +605,13 @@ floorTexture.repeat.set(100,100);
 
 const floorGeometry = new THREE.PlaneGeometry( 200, 200 );
 //const floorMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+//const floorMaterial = new THREE.MeshBasicMaterial( { map:floorTexture, opacity:0.5, transparent: true} );
 const floorMaterial = new THREE.MeshBasicMaterial( { map:floorTexture} );
 
 const floor = new THREE.Mesh( floorGeometry, floorMaterial );
 floor.rotateX(- Math.PI / 2);
 scene.add(floor);
-floor.position.set(0,-14,0);
+floor.position.set(0,-14.2,0);
 
 controls.addEventListener("change", event => {
   // console.log( controls.object.position ); 
