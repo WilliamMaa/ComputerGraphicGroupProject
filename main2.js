@@ -62,9 +62,6 @@ loader.load('./ruin_building.glb', function (gltf) {
             const m = child
             m.receiveShadow = true
             m.castShadow = true
-
-            //   const newMaterial = waterIntensity.mix(m.material.color)
-            //   m.material = newMaterial;
         }
         if ((child).isLight) {
             const l = child
@@ -560,14 +557,14 @@ const depthEffect = depthTexture().distance(depth).remapClamp(0, .05);
 
 const timer = timerLocal(.8);
 const floorUV = positionWorld.xzy;
-const waterIntensity = mx_worley_noise_float(floorUV.mul(4).add(timer)).mul(mx_worley_noise_float(floorUV.mul(2).add(timer))).mul(0.8);
-const waterColor = waterIntensity.mix(color(0x0f5e9c), color(0x9FC5E8));
+const waterSurface = mx_worley_noise_float(floorUV.mul(4).add(timer)).mul(mx_worley_noise_float(floorUV.mul(2).add(timer))).mul(0.8);
+const waterColor = waterSurface.mix(color(0x0f5e9c), color(0x9FC5E8));
 const viewportTexture = viewportSharedTexture();
 
 const waterMaterial = new MeshBasicNodeMaterial();
 const loaderManager = new THREE.LoadingManager();
-const normalloader = new THREE.TextureLoader(loaderManager).setPath('textures/');
-const waterNormal = normalloader.load('waternormals.jpg');
+const normalLoader = new THREE.TextureLoader(loaderManager).setPath('textures/');
+const waterNormal = normalLoader.load('waternormals.jpg');
 waterNormal.wrapS = THREE.RepeatWrapping;
 waterNormal.wrapT = THREE.RepeatWrapping;
 waterMaterial.colorNode = waterColor;
@@ -581,7 +578,7 @@ const water = new THREE.Mesh(new THREE.BoxGeometry(200, .001, 200), waterMateria
 water.position.set(0, .8, 0);
 scene.add(water);
 
-// const groundColor = waterIntensity.mix(color(0x422835), color(0x8E6D7F));
+// const groundColor = waterSurface.mix(color(0x422835), color(0x8E6D7F));
 // var groundMaterial = new MeshBasicNodeMaterial();
 // groundMaterial.colorNode = groundColor;
 
